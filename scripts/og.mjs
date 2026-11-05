@@ -1,5 +1,6 @@
 // Eenmalig draaien: node scripts/og.mjs
-// Maakt public/og/default.png en een afbeelding per gepubliceerd artikel (1200 x 630).
+// Maakt public/og/default.png (home), een afbeelding per pagina in PAGINAS en een per gepubliceerd artikel (1200 x 630).
+// Label en kop van de pagina's worden uit de <Label> en <h1> van het .astro bestand gelezen.
 // Niet onderdeel van de build; commit alleen de PNG's.
 // De domeinnaam op de afbeelding komt uit SITE_URL (standaard myst.nl).
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -24,12 +25,12 @@ const logo = "data:image/svg+xml;base64," + Buffer.from(logoSvg).toString("base6
 
 const h = (type, style, children) => ({ type, props: { style, children } });
 
-function kaart(titel) {
+function kaart(label, titel) {
   const grootte = titel.length > 70 ? 56 : titel.length > 45 ? 66 : 76;
   return h("div", { display: "flex", flexDirection: "column", justifyContent: "space-between", width: 1200, height: 630, background: "#0B1026" }, [
     h("div", { display: "flex", flexDirection: "column", padding: "64px 72px 0" }, [
       { type: "img", props: { src: logo, width: 202, height: 56, style: { width: 202, height: 56 } } },
-      h("div", { display: "flex", fontFamily: "JetBrains Mono", fontWeight: 500, fontSize: 28, letterSpacing: 3, color: "#FF4DB0", marginTop: 56 }, "// blog"),
+      h("div", { display: "flex", fontFamily: "JetBrains Mono", fontWeight: 500, fontSize: label.length > 40 ? 20 : 28, letterSpacing: label.length > 40 ? 1 : 3, color: "#FF4DB0", marginTop: 56, maxWidth: 1056 }, "// " + label),
       h("div", { display: "flex", fontFamily: "Manrope", fontWeight: 800, fontSize: grootte, lineHeight: 1.12, color: "#FFFFFF", marginTop: 24, lineClamp: 3, maxWidth: 1000 }, titel),
     ]),
     h("div", { display: "flex", flexDirection: "column" }, [
@@ -39,18 +40,29 @@ function kaart(titel) {
   ]);
 }
 
-async function maak(bestand, titel) {
-  const svg = await satori(kaart(titel), { width: 1200, height: 630, fonts });
+async function maak(bestand, label, titel) {
+  const svg = await satori(kaart(label, titel), { width: 1200, height: 630, fonts });
   writeFileSync(join(root, "public/og", bestand), new Resvg(svg, { fitTo: { mode: "width", value: 1200 } }).render().asPng());
   console.log("public/og/" + bestand);
 }
 
-await maak("default.png", "Over wat we tegenkomen in ons werk.");
+const PAGINAS = [
+  ["default.png", "src/pages/index.astro"], // ook de standaard voor pagina's zonder eigen afbeelding
+  ["werkwijze.png", "src/pages/werkwijze.astro"],
+  ["werken-bij.png", "src/pages/werken-bij.astro"],
+  ["workshops.png", "src/pages/workshops/index.astro"],
+  ["blog.png", "src/pages/blog/index.astro"],
+];
+const tekst = (m) => m[1].trim().replace(/&amp;/g, "&");
+for (const [bestand, bron] of PAGINAS) {
+  const src = readFileSync(join(root, bron), "utf8");
+  await maak(bestand, tekst(src.match(/<Label>([^<]+)<\/Label>/)), tekst(src.match(/<h1>([^<]+)<\/h1>/)));
+}
 
 const map = join(root, "src/content/artikelen");
 for (const f of readdirSync(map).filter((f) => f.endsWith(".md"))) {
   const kop = readFileSync(join(map, f), "utf8").split("---")[1];
   if (/^concept:\s*true/m.test(kop)) continue;
   const titel = kop.match(/^titel:\s*(.+)$/m)[1].trim().replace(/^["']|["']$/g, "");
-  await maak(f.replace(/\.md$/, ".png"), titel);
+  await maak(f.replace(/\.md$/, ".png"), "blog", titel);
 }
