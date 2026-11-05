@@ -1,0 +1,125 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Kaart from "../components/Kaart.astro";
+import Knop from "../components/Knop.astro";
+import Label from "../components/Label.astro";
+
+const endan = [["x", "Intakes, meerdere", "We sturen je niet naar de eerste de beste aanvraag. We zoeken opdrachten die bij je passen, op techniek, op team en op wat jij wilt leren, en we regelen daar meerdere intakes voor. Elke intake bereiden we samen voor: wat de opdracht echt vraagt, wie je spreekt, en wat jij wilt weten."], ["x", "Jij kiest", "Na de intakes kies jij. Niet wij, en niet de opdrachtgever die het hardst trekt. Vind je de techniek bij de ene beter en de mensen bij de andere, dan praten we erover, maar het laatste woord is van jou."], ["x", "Starten", "Je begint, en vanaf dag één sta je er niet alleen voor: je collega's zijn altijd bereikbaar, en bij je eerste kennissessie ken je iedereen."], [" ", "Elke zes weken een fieldgesprek", "Elke zes weken komen we langs, bij de opdracht of ergens anders. Niet alleen over het werk: hoe het platform ervoor staat en of de opdracht nog uitdaagt, maar ook over hoe het met jou gaat. Vlakt een opdracht af, dan zoeken we op tijd de volgende. We geloven in persoonlijk contact, en dit is hoe dat eruitziet."]];
+const accenten = (await getCollection("accenten")).sort((a, b) => a.data.volgorde - b.data.volgorde);
+
+const voorwaarden = [
+  ["Jij kiest de opdracht", "We regelen meerdere intakes en jij kiest: vanwege de techniek, de locatie, de klik, of omdat je thuissituatie is veranderd. Opdrachten duren gemiddeld twee jaar; wordt het minder leuk, dan kijken we samen verder."],
+  ["Je denkt mee over de strategie, en plukt daar de vruchten van", "Jaarlijkse strategiedagen waar de engineers de kennisagenda en de koers bepalen, met een hackathon erbij. Gaat het goed met Myst, dan merk je dat op je bankrekening: een riante winstdeling, gelijk verdeeld, ongeacht senioriteit."],
+  ["Leren in werktijd", "Elke zes weken een kennissessie: praktisch, geen verkooppraatje, met eten erbij. Lightning talks, externe sprekers, onderwerpen die jullie zelf kiezen. Daarnaast vijf ontwikkelingsdagen, een ruim opleidingsbudget, en de mogelijkheid om conferenties te bezoeken. En wie het leuk vindt, geeft zelf een workshop bij Codelab."],
+  ["Mobiliteit zoals jij wilt", "700 euro per maand vrij te besteden, een leaseauto (bij voorkeur elektrisch, geen diesel) of een leasefiets. Wat je niet gebruikt, komt bij je salaris."],
+  ["Je eigen gereedschap", "Jij kiest je laptop, je besturingssysteem en je tooling, budget rond de 3000 euro. Geen dichtgetimmerde laptop en geen helpdesk: we gaan ervan uit dat je je eigen laptop kunt beheren."],
+  ["Werken waar het werk is", "Thuis, bij de klant, of op de locatie die we in Nieuwegein huren als het handig is om bij elkaar te zitten. Geen kantoor dat negentig procent van de tijd leeg staat; dat geld gaat naar jou."],
+  ["De basis klopt", "27 vakantiedagen, 8 procent vakantiegeld, pensioen waarvan Myst het grootste deel betaalt, telefoon en onkosten vergoed, aanbrengbonus als je een collega meeneemt."],
+  ["Samen, ook buiten het werk", "Escape rooms, hackathons, battle kart, een LAN party, strategiedagen met een barbecue en een kampvuur, en zo kunnen we nog wel even doorgaan. Partners en kinderen kennen elkaar ook."],
+];
+const collegas = [
+  ["Wat ik het fijnst vind aan Myst: je zit tussen professionals met allemaal hun eigen expertise, dus er is altijd wel iemand om mee te sparren. Inhoudelijk werk ik aan echt grote projecten bij grote klanten. Op dit moment beheer ik meer dan 25 Kubernetes clusters voor ruim 12 development teams, en dat vind ik gaaf werk. Tegelijk is Myst bewust klein, met maximaal 25 collega's, dus iedereen kent elkaar. Dat merk je ook op een borrel of uitje: dat is gewoon gezellig.", "Senne", "Cloud / DevOps Engineer", "magenta"],
+  ["Voordat ik bij Myst kwam werkte ik bij een groot bedrijf, daar voelde ik mij een nummertje. Bij Myst spreek ik direct met de directeur, je weet wel, 'de collega die mijn salaris betaalt', en kijken we samen naar een oplossing die bij mij past. Potentiële opdrachten worden van tevoren met mij gedeeld, en we bespreken of ze passen bij mijn profiel en carrièredoelen. Zoals mijn huidige cybersecurity opdracht (in Cloud Engineering!). Daardoor kom ik terecht waar ik met motivatie aan de slag ga!", "Wernard", "Senior Platform Engineer", "blauw"],
+];
+---
+<Base title="Werken bij Myst" description="Myst is een klein team senior cloud engineers dat bewust klein blijft: maximaal 25, daarna stopt het.">
+  <section class="hero hero--breed">
+    <div class="wrap kolom-24">
+      <Label>werken bij myst</Label>
+      <h1>Een plek waar je uitgedaagd wordt.</h1>
+      <p class="lead">Myst is een klein team senior cloud engineers dat bewust klein blijft: maximaal 25, daarna stopt het. Je bouwt aan platformen die ertoe doen, je kiest zelf je opdrachten, je bepaalt mee waar het bedrijf heen gaat, en je blijft leren omdat de klant altijd een stap voor moet zijn. De lat ligt hoog; dat is precies waarom het leuk is.</p>
+      <div class="hero__acties">
+        <Knop href="https://shell.myst.nl" extern>Solliciteer via de terminal</Knop>
+        <Knop href="#accenten" variant="secundair">Bekijk de zes accenten</Knop>
+      </div>
+    </div>
+    <div class="gloedlijn"></div>
+  </section>
+
+  <section class="wrap sectie fade">
+    <Label>wat we zoeken</Label>
+    <h2 class="mb-20">Cloud Engineers, met een eigen accent</h2>
+    <div class="gedempt tekstblok tekstblok--smal">
+      <p>We zoeken Cloud Engineers. Dat klinkt breed, en dat is het ook: onze collega's komen uit Linux beheer, softwareontwikkeling, mainframe en webontwikkeling, en zijn allemaal via een eigen route in de public cloud terechtgekomen. Wat ze delen is dit: ze bouwen platformen waar anderen op werken, ze leggen infrastructuur vast in code, ze zetten zelf clusters en pipelines op in plaats van ze alleen af te nemen, en ze blijven leren omdat de klant een stap voor moet zijn.</p>
+      <p>Je hebt minimaal vijf jaar relevante ervaring, liever tien, en een combinatie telt ook: drie jaar cloud naast vijf jaar development bijvoorbeeld. Je kent één public cloud door en door en bent nieuwsgierig naar de andere twee. Infrastructuur als code doen we allemaal, met Terraform voorop; Kubernetes komt bij bijna elke opdracht voorbij, en scripten in PowerShell, Bash of Python is dagelijks werk. Kun je ook code lezen en schrijven, in Java, C# of Go, dan merk je dat elke dag: de helft van je collega's komt uit de softwareontwikkeling. Je kunt met een product owner een functionele wens omzetten in een technische oplossing, stap voor stap, zonder eerst een jaar aan requirements te schrijven.</p>
+      <p>Mentaliteit weegt zwaarder dan tooling. Tools leer je; nieuwsgierigheid, een eigen mening en de drang om dingen zelf uit te zoeken niet. HBO werk- en denkniveau is het uitgangspunt.</p>
+    </div>
+  </section>
+
+  <section class="wrap sectie fade" id="accenten">
+    <Label>het werk</Label>
+    <h2 class="mb-8">Eén functie, zes accenten</h2>
+    <p class="sectie__intro t16 mb-28 max-80">Iedereen bij Myst is Cloud Engineer. Wat je daar in een opdracht van maakt, hangt af van het team, de fase van het platform en wat jij het liefst doet. Dit zijn de accenten waar onze collega's nu in zitten; de meesten combineren er twee, en wisselen na een paar jaar.</p>
+    <div class="raster raster--drie">
+      {accenten.map(({ data: a }) => (
+        <Kaart chamfer class="rol">
+          <span class="nr">{String(a.volgorde).padStart(2, "0")}</span>
+          <h3>{a.titel}</h3>
+          <p>{a.zin}</p>
+          <ul>{a.verantwoordelijkheden.map((x) => <li>{x}</li>)}</ul>
+        </Kaart>
+      ))}
+    </div>
+    <p class="sectie__intro t16 mt-28 max-80">Herken je jezelf in twee of drie van deze accenten? Dan zit je hier goed. Herken je je in één en wil je de rest leren? Ook.</p>
+  </section>
+
+  <section class="wrap sectie fade" id="wat-je-krijgt">
+    <Label>wat je krijgt</Label>
+    <h2 class="mb-8">Feiten, geen mooie woorden</h2>
+    <p class="sectie__intro t16 mb-28">Alles hieronder staat in je contract of in de agenda. Wat er niet staat, beloven we niet.</p>
+    <div class="raster raster--smal">
+      {voorwaarden.map(([kop, tekst], i) => (
+        <Kaart chamfer compact>
+          <span class="nr">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="t19">{kop}</h3>
+          <p>{tekst}</p>
+        </Kaart>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sectie fade">
+    <Label>collega's</Label>
+    <h2 class="mb-28">In hun eigen woorden</h2>
+    <div class="raster">
+      {collegas.filter(([, naam]) => !naam.startsWith("[")).map(([citaat, naam, rol, verloop]) => (
+        <Kaart as="figure" chamfer class="citaat">
+          <blockquote>{citaat}</blockquote>
+          <figcaption>
+            <span class={`avatar avatar--${verloop}`} aria-hidden="true"></span>
+            <span><b>{naam}</b><span class="mono">{rol}</span></span>
+          </figcaption>
+        </Kaart>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sectie fade">
+    <Label>solliciteren</Label>
+    <h2 class="mb-20">Begin in de shell</h2>
+    <p class="gedempt lopend">Solliciteren doe je bij ons het liefst via de terminal. Op <a href="https://shell.myst.nl" target="_blank" rel="noopener">shell.myst.nl</a> staat een omgeving die je mag verkennen; wie goed kijkt, vindt vanzelf hoe je solliciteert. Dat doen we niet om het moeilijk te maken: we zoeken mensen die nieuwsgierig zijn en dingen zelf uitzoeken, en daar begint het. Liever direct? Mail je CV en een korte motivatie naar info@myst.nl.</p>
+    <div class="mt-24"><Knop href="https://shell.myst.nl" extern>Open de shell</Knop></div>
+  </section>
+
+  <section class="wrap sectie fade">
+    <Label>het gesprek</Label>
+    <h2 class="mb-20">Eerst de klik, dan het niveau</h2>
+    <p class="gedempt lopend">Het eerste gesprek is een kennismaking: wie ben je, wat heb je gebouwd, waar wil je heen, en is er een klik. Daarna spreek je met twee collega's die kijken of je technisch van het juiste niveau bent. Zij beslissen. De kwaliteit in het team is hoog, dus we nemen alleen mensen aan bij wie de klik groot is, en we zeggen het eerlijk als die er niet is.</p>
+  </section>
+
+  <section class="wrap sectie fade">
+    <Label>en dan</Label>
+    <h2 class="mb-8">Wat er gebeurt als we allemaal enthousiast zijn</h2>
+    <p class="sectie__intro t16 mb-28">Dan start je bij Myst, en dan is het aan ons.</p>
+    <div class="stappen">
+      {endan.map(([vink, kop, tekst]) => (
+        <div class="stap">
+          <span class="vink" aria-hidden="true">[{vink}]</span>
+          <div><h3>{kop}</h3><p>{tekst}</p></div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</Base>

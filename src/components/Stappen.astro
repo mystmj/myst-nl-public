@@ -1,0 +1,17 @@
+---
+const { uitgebreid = false } = Astro.props;
+const stappen = [
+  ["Eerst begrijpen wat het team nodig heeft", "Een functietitel zegt weinig. We lezen de werkzaamheden, de stack en het team, en scheiden wat echt nodig is van wat mooi meegenomen is.", "Een functietitel zegt weinig. \"DevOps Engineer\" blijkt in de praktijk een Microsoft 365 beheerder, \"Cloud Engineer\" een platform engineer die tickets moet draaien. We lezen de werkzaamheden, de stack en het team, en pas daarna de titel. Wat echt nodig is zetten we apart van wat mooi meegenomen is. Zo weten we wat de rol werkelijk vraagt voordat we aan een naam denken."],
+  ["De juiste engineer voor de rol", "We kijken wie van onze engineers bij de rol en bij het team past, op basis van eerder gebouwd werk. Je krijgt het CV met een korte motivatie waarin dat staat. Vraagt de opdracht om meer dan één engineer, of om een ander vak, dan vullen we aan uit de groep.", "We kijken wie van onze engineers bij de rol en bij het team past. Niet op trefwoorden, maar op wat iemand in de praktijk gebouwd heeft en op de omgeving waarin diegene het beste werkt. Je krijgt het CV met een korte motivatie van een paar zinnen waarin staat waarom juist deze engineer. Vraagt de opdracht om meer dan één engineer, of om een ander vak, dan vullen we aan uit de groep."],
+  ["Kennismaking met de engineer zelf", "Je spreekt de engineer zelf, niet een accountmanager. Die kent de opdracht en vertelt uit eigen ervaring. Klikt het, dan gaan we van start.", "Je spreekt de engineer zelf, niet een accountmanager die namens iemand anders praat. De engineer kent de opdracht en heeft zich erin verdiept, en wat je hoort komt uit eigen ervaring: wat er gebouwd is, hoe dat is aangepakt en wat de engineer daarvan vindt. Klikt het aan beide kanten, dan gaan we van start."],
+  ["Meebouwen vanaf dag één", "Onze engineers denken na een paar maanden mee over architectuur en verbeteringen; dat is de bedoeling. Achter elke engineer staat een team dat veel kennis met elkaar deelt.", "Onze engineers komen om te bouwen, en na een paar maanden denken ze mee over architectuur en verbeteringen; dat is de bedoeling."],
+];
+---
+<div class="stappen">
+  {stappen.map(([kop, tekst, alinea], i) => (
+    <div class="stap">
+      <span class="vink" aria-hidden="true">{i < 3 ? "[x]" : "[ ]"}</span>
+      <div><h3>{kop}</h3><p>{uitgebreid ? alinea : tekst}</p></div>
+    </div>
+  ))}
+</div>

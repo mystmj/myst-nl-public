@@ -1,0 +1,4 @@
+---
+const { aan } = Astro.props;
+---
+<div class="balk" aria-hidden="true">{Array.from({ length: 10 }, (_, i) => <i class={i < aan ? "aan" : undefined} />)}</div>

@@ -1,0 +1,4 @@
+---
+const { href, variant = "primair", class: klas, extern = false } = Astro.props;
+---
+<a href={href} class:list={["knop", `knop--${variant}`, klas]} target={extern ? "_blank" : undefined} rel={extern ? "noopener" : undefined}><slot /></a>

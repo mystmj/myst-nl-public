@@ -1,0 +1,56 @@
+---
+---
+<a class="terminal" href="https://shell.myst.nl" target="_blank" rel="noopener" aria-label="Open de shell van Myst" data-terminal>
+  <span class="terminal__kop">shell.myst.nl · tty1 · 80x24</span>
+  <span class="terminal__scherm">
+    <span class="terminal__regel">Connected to shell.myst.nl.</span>
+    <span class="terminal__regel"><span class="terminal__prompt">root@shell.myst.nl:~$ </span><span data-tik>ls</span></span>
+    <span class="terminal__regel">README.md  vacatures/</span>
+    <span class="terminal__regel"><span class="terminal__prompt">root@shell.myst.nl:~$ </span><span data-tik>cat README.md</span></span>
+    <span class="terminal__regel">Kijk eens goed rond in deze map.</span>
+    <span class="terminal__regel"><span class="terminal__prompt">root@shell.myst.nl:~$ </span><span class="cursor" aria-hidden="true"></span></span>
+    <span class="terminal__hint">druk op ~ of klik om verbinding te maken</span>
+  </span>
+</a>
+
+<script>
+  const wacht = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  async function speel(root: HTMLElement) {
+    const regels = [...root.querySelectorAll<HTMLElement>(".terminal__regel, .terminal__hint")];
+    const tikken = [...root.querySelectorAll<HTMLElement>("[data-tik]")].map((el) => [el, el.textContent ?? ""] as const);
+    tikken.forEach(([el]) => (el.textContent = ""));
+    regels.forEach((r) => (r.hidden = true));
+    for (const r of regels) {
+      r.hidden = false;
+      const tik = r.querySelector<HTMLElement>("[data-tik]");
+      if (tik) {
+        const tekst = tikken.find(([el]) => el === tik)![1];
+        for (const c of tekst) {
+          tik.textContent += c;
+          await wacht(70);
+        }
+        await wacht(350);
+      } else {
+        await wacht(r.classList.contains("terminal__hint") ? 200 : 450);
+      }
+    }
+  }
+
+  function init() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll<HTMLElement>("[data-terminal]").forEach((root) => {
+      if (root.dataset.klaar) return;
+      root.dataset.klaar = "1";
+      const io = new IntersectionObserver((items) => {
+        if (items.some((i) => i.isIntersecting)) {
+          io.disconnect();
+          speel(root);
+        }
+      }, { threshold: 0.4 });
+      io.observe(root);
+    });
+  }
+
+  document.addEventListener("astro:page-load", init);
+</script>

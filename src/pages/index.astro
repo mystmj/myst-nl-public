@@ -1,0 +1,132 @@
+---
+import Base from "../layouts/Base.astro";
+import Terminal from "../components/Terminal.astro";
+import Kaart from "../components/Kaart.astro";
+import Chip from "../components/Chip.astro";
+import Knop from "../components/Knop.astro";
+import Label from "../components/Label.astro";
+import Stappen from "../components/Stappen.astro";
+import Artikelen from "../components/Artikelen.astro";
+import { getCollection } from "astro:content";
+
+const heroChips = ["Azure", "AWS", "Google Cloud", "Terraform", "Kubernetes", "CI/CD", "Observability", "Linux"];
+const workshops = (await getCollection("workshops")).sort((a, b) => a.data.volgorde - b.data.volgorde);
+const clouds = [
+  { naam: "Microsoft Azure", logo: "/logos/azure.svg", tekst: "Landing zones volgens het Cloud Adoption Framework, hub en spoke netwerken, Azure Policy, Entra ID. Infrastructuur in Terraform of Bicep, uitgerold via Azure DevOps of GitHub Actions. Containers op AKS. Hier zit het meeste van ons werk, van de werkplek van een grote organisatie tot een interne Kubernetes dienst bij een bank.", chips: ["Terraform", "Bicep", "Azure DevOps", "AKS", "Azure Policy"] },
+  { naam: "Amazon Web Services", logo: "/logos/aws.svg", tekst: "Landing zones met de Landing Zone Accelerator, automatisering met CloudFormation, Systems Manager en Ansible, containers op EKS, ECS en Fargate. Van een managed Kubernetes dienst voor een IT dienstverlener tot volledig geautomatiseerde deployments voor een internationale zorgorganisatie.", chips: ["CloudFormation", "Terraform", "EKS", "ECS", "Fargate"] },
+  { naam: "Google Cloud", logo: "/logos/google-cloud.svg", tekst: "Greenfield platformen op GKE, infrastructuur in Terraform, GitOps met Flux, dataplatformen op BigQuery. Een transportlogistiek platform met machine learning op Vertex AI en een cloudplatform voor een software defined bestelbus zijn hier gebouwd.", chips: ["GKE", "Terraform", "Flux", "BigQuery", "Vertex AI"] },
+];
+const feiten = [
+  { nr: "01 · BOUWERS", kop: "Nieuwbouw, migratie, platform", tekst: "Onze engineers werken projectmatig: een platform opzetten, een landing zone neerzetten, workloads migreren, pipelines standaardiseren, observability inrichten. Beheer en tickets draaien doen we niet." },
+  { nr: "02 · SENIOR EN BREED", kop: "Vijf jaar is de ondergrens, tien is gewoon", tekst: "Gespecialiseerd in één cloud, thuis in de andere twee, en allemaal thuis in infrastructuur als code, met Terraform voorop. Engineers die een functionele wens van een product owner zelf omzetten in een technische oplossing. In het team: architectcertificeringen voor Azure en AWS, CKA en CKAD voor Kubernetes, Terraform Associate en Linux." },
+  { nr: "03 · EEN STAP VOOR", kop: "Bijblijven is werk, geen hobby", tekst: "Onze engineers krijgen tijd en budget om bij te blijven, en ze bepalen samen welke kennis Myst volgend jaar in huis moet hebben. Kennis delen we in de praktijk, binnen het team en op conferenties. Zo kunnen onze mensen een klant adviseren voordat die het vraagt." },
+];
+const opdrachten = [
+  { kop: "Interne Kubernetes dienst voor een grote Nederlandse bank", tekst: "Ontwikkelteams krijgen binnen twee uur een volledig compliant en onderhoudsvrij cluster. Uitrol met GitOps, updates automatisch met Renovate, observability met OpenTelemetry.", chips: ["Azure", "Terraform", "Argo CD", "Azure DevOps"] },
+  { kop: "Werkplekplatform van een grote Nederlandse bank naar infrastructuur als code", tekst: "Nieuwe producten op Azure met Modern Management en Terraform als uitgangspunt, en de overgang van eigen datacenters naar de cloud. Van de tachtig engineers in de afdeling werkten er twintig al zo; de rest kan nu volgen.", chips: ["Azure", "Terraform", "Ansible", "Intune"] },
+  { kop: "Veilig bouwen en deployen bij een uitvoeringsorganisatie van de rijksoverheid", tekst: "CI/CD platform voor tientallen ontwikkelteams: base images automatisch bijgewerkt, CVE scanning tijdens runtime, secrets per applicatie in Vault, een eigen operator en een migratietool naar GitOps.", chips: ["Kubernetes", "Argo CD", "Vault", "Jenkins"] },
+  { kop: "AWS omgeving van een internationale zorgorganisatie volledig geautomatiseerd", tekst: "Bedrijfskritische applicaties die net vernieuwd zijn en volledig op AWS draaien. Bestaande infrastructuur en deployscripts omgezet naar gestructureerde, geautomatiseerde deployments, met security en kosten in beeld.", chips: ["AWS", "CloudFormation", "ECS Fargate", "CI/CD"] },
+  { kop: "Greenfield platform voor een software defined bestelbus", tekst: "Joint venture van twee autofabrikanten, vanaf nul op Google Cloud: infrastructuur als code, containers, integratie met het voertuig, dataverzameling. Meerdere engineers van Myst, samen met collega's uit de groep.", chips: ["Google Cloud", "Kubernetes", "GitOps"] },
+  { kop: "Landing zones voor een grote IT dienstverlener en zijn klanten", tekst: "Ontwerp en bouw van een AWS landing zone met de Landing Zone Accelerator, een managed Kubernetes dienst op EKS en automatisering van bestaande klantomgevingen ten behoeve van beheerovername.", chips: ["AWS", "EKS", "Systems Manager", "Ansible"] },
+];
+---
+<Base title="Myst · detachering van senior cloud engineers" description="Myst is een klein team senior cloud engineers. We ontwerpen, bouwen en automatiseren platformen op Azure, AWS en Google Cloud, voor organisaties die meer uit de cloud willen halen. Onze engineers werken op detacheringsbasis mee in jouw team.">
+  <section class="hero hero--rij" id="console">
+    <div class="wrap">
+      <div class="hero__tekst">
+        <Label>detachering van senior cloud engineers · azure · aws · google cloud</Label>
+        <h1>Vakmanschap in de cloud.</h1>
+        <p class="lead">Myst is een klein team senior cloud engineers. We ontwerpen, bouwen en automatiseren platformen op Azure, AWS en Google Cloud, voor organisaties die meer uit de cloud willen halen. Onze engineers werken op detacheringsbasis mee in jouw team.</p>
+        <div class="hero__acties">
+          <Knop href="#clouds">Wat we doen</Knop>
+          <Knop href="/werken-bij" variant="secundair">Werken bij Myst</Knop>
+        </div>
+        <div class="hero__chips">{heroChips.map((c) => <Chip>{c}</Chip>)}</div>
+      </div>
+      <Terminal />
+    </div>
+    <div class="gloedlijn"></div>
+  </section>
+
+  <section class="wrap sectie fade" id="clouds">
+    <Label>drie clouds</Label>
+    <h2 class="mb-8">Azure, AWS en Google Cloud</h2>
+    <p class="sectie__intro mb-28">Specialist in één cloud, thuis in de andere twee. Kennis van de ene opdracht komt bij ons via de kennissessies in de andere terecht.</p>
+    <div class="raster">
+      {clouds.map((c) => (
+        <Kaart chamfer>
+          <span class="cloudlogo"><img src={c.logo} alt={c.naam} height="28" /></span>
+          <h3>{c.naam}</h3>
+          <p>{c.tekst}</p>
+          <div class="chips">{c.chips.map((x) => <Chip>{x}</Chip>)}</div>
+        </Kaart>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sectie fade">
+    <Label>waarom myst</Label>
+    <h2 class="sr-only">Waarom Myst</h2>
+    <div class="raster">
+      {feiten.map((f) => (
+        <Kaart chamfer>
+          <span class="nr">{f.nr}</span>
+          <h3>{f.kop}</h3>
+          <p>{f.tekst}</p>
+          {f.chips && <div class="chips">{f.chips.map((c) => <Chip>{c}</Chip>)}</div>}
+        </Kaart>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sectie fade" id="opdrachten">
+    <div class="sectie__kop">
+      <div><Label>opdrachten</Label><h2>Waar onze engineers bouwen</h2></div>
+      <p class="sectie__intro">Financiële sector, overheid, zorg, automotive.</p>
+    </div>
+    <div class="raster raster--drie">
+      {opdrachten.map((o) => (
+        <Kaart>
+          <h3 class="t20">{o.kop}</h3>
+          <p>{o.tekst}</p>
+          <div class="chips">{o.chips.map((c) => <Chip>{c}</Chip>)}</div>
+        </Kaart>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sectie fade" id="workshops">
+    <Label>workshops</Label>
+    <h2 class="mb-8">Kennis delen, hands on</h2>
+    <p class="sectie__intro mb-28">Wij zijn de experts, dus delen we wat we weten: praktische workshops via Codelab, gegeven door engineers die het dagelijks doen. Gratis bij jou op kantoor, als de deur openstaat voor wie mee wil leren.</p>
+    <div class="raster raster--twee">
+      {workshops.map(({ data: w }) => (
+        <Kaart chamfer>
+          <h3 class="t20">{w.titel}</h3>
+          <p>{w.ondertitel}</p>
+        </Kaart>
+      ))}
+    </div>
+    <div class="mt-28"><Knop href="/workshops">Alle workshops</Knop></div>
+  </section>
+
+  <section class="wrap sectie fade" id="werkwijze">
+    <Label>werkwijze</Label>
+    <h2 class="mb-28">Zo helpen onze engineers je verder</h2>
+    <Stappen />
+  </section>
+
+  <section class="wrap sectie fade" id="blog">
+    <Label>blog</Label>
+    <h2>Blog</h2>
+    <p class="sectie__intro mb-28">Over wat we tegenkomen in ons werk.</p>
+    <Artikelen max={3} />
+  </section>
+
+  <section class="wrap sectie fade eind" id="over">
+    <Label>over myst</Label>
+    <h2 class="mb-20">Klein, en dat blijft zo</h2>
+    <p class="gedempt lopend">Myst bestaat sinds eind 2023 en groeit tot maximaal 25 engineers, daarna stopt het. Zo blijft het persoonlijk: iedereen kent elkaar, de engineers bepalen de koers en kiezen hun eigen opdrachten. De naam zegt wat we doen: de mist uit de cloud halen.</p>
+    <p class="gedempt lopend mt-16">Myst is een van de labels van de <a href="https://itbrouwerij.nl" target="_blank" rel="noopener">IT Brouwerij</a>, een consortium van kleine, gespecialiseerde IT bedrijven: <a href="https://craftsmen.nl" target="_blank" rel="noopener">Craftsmen</a> (software engineers), <a href="https://codefoundry.nl" target="_blank" rel="noopener">Code Foundry</a> (developers), <a href="https://techforce1.nl" target="_blank" rel="noopener">Techforce1</a> (DevOps, cloud en on premises) en Myst (cloud). Ieder label brouwt zijn eigen specialiteit. Samen dekken we een complete aanvraag, ook als er een heel team nodig is, met dezelfde korte lijnen als bij één engineer. Klein in omvang, met de slagkracht van een groot bedrijf. Myst is <a href="https://www.normeringarbeid.nl/snakeurmerk/gecertificeerde-ondernemingen/53031c51-af37-418c-50aa-89f12b03879f/verklaring/nl" target="_blank" rel="noopener" title="Verklaring Stichting Normering Arbeid">SNA gecertificeerd</a> (NEN 4400-1): onze loonadministratie en afdrachten worden periodiek gecontroleerd door een onafhankelijke inspectie-instelling, zodat je als opdrachtgever weet met wie je zaken doet.</p>
+  </section>
+</Base>

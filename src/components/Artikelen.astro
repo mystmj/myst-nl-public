@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import Kaart from "./Kaart.astro";
+
+const { max = Infinity } = Astro.props;
+const tijd = (d: string) => Date.parse(d) || 0;
+// gepubliceerd eerst, nieuwste datum bovenaan; concepten achteraan op volgorde
+const artikelen = (await getCollection("artikelen")).sort((a, b) =>
+  a.data.concept !== b.data.concept
+    ? Number(a.data.concept) - Number(b.data.concept)
+    : a.data.concept
+      ? a.data.volgorde - b.data.volgorde
+      : tijd(b.data.datum) - tijd(a.data.datum) || a.data.volgorde - b.data.volgorde,
+).slice(0, max);
+---
+<div class="raster">
+  {artikelen.map((a) => (
+    <Kaart class="kaart--artikel" as={a.data.concept ? "div" : "a"} href={a.data.concept ? undefined : `/blog/${a.id}`} compact>
+      <span class="mono gedempt kaart__meta">{(a.data.concept ? "BINNENKORT · " : "") + a.data.categorie.toUpperCase()}</span>
+      <h3 class="t19 lh-13">{a.data.titel}</h3>
+    </Kaart>
+  ))}
+</div>

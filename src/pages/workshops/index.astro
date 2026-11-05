@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Label from "../../components/Label.astro";
+import Kaart from "../../components/Kaart.astro";
+
+const workshops = (await getCollection("workshops")).sort((a, b) => a.data.volgorde - b.data.volgorde);
+const delen = [
+  ["Programma", "programma"],
+  ["Vereisten", "vereisten"],
+  ["Doelstellingen", "doelstellingen"],
+] as const;
+---
+<Base title="Workshops · Myst" description="Praktische workshops van Myst engineers, via Codelab: Kubernetes operators en AI agents met n8n.">
+  <div class="wrap pagina-kop">
+    <Label>workshops</Label>
+    <h1>Kennis delen, hands on</h1>
+    <p>Wij zijn de experts, dus delen we wat we weten. Onze workshops zijn geen presentaties maar middagen met je handen aan de knoppen, gegeven door engineers die het dagelijks doen. We geven ze via <a href="https://codelabjug.nl" target="_blank" rel="noopener">Codelab</a>, de meetup van de groep waar Myst deel van uitmaakt.</p>
+    <p><strong>Een workshop bij jou op kantoor? Dat kan, en het kost niets.</strong> Wij verzorgen de workshop, jij regelt de ruimte en de catering. Eén voorwaarde: de deur staat open. We zetten de sessie op meetup.com, zodat ook mensen van buiten je organisatie kunnen aanschuiven. Zo leren jouw mensen, leren wij, en leert de markt mee. Dat is het idee achter Codelab.</p>
+  </div>
+  <section class="wrap sectie fade eind">
+    <h2 class="sr-only">Workshops</h2>
+    <div class="raster raster--twee">
+      {workshops.map(({ data: w }) => (
+        <Kaart chamfer>
+          <h3>{w.titel}</h3>
+          <p class="mono meta-12">{w.ondertitel} · via {w.via}</p>
+          <p>{w.samenvatting}</p>
+          <details class="uitklap">
+            <summary><span class="uitklap__dicht">Programma en details</span><span class="uitklap__open">Inklappen</span></summary>
+            {delen.map(([kop, veld]) => (
+              <>
+                <h4>{kop}</h4>
+                <ul>{w[veld].map((x) => <li>{x}</li>)}</ul>
+              </>
+            ))}
+            <h4>Doelgroep</h4>
+            <p>{w.doelgroep}</p>
+          </details>
+        </Kaart>
+      ))}
+    </div>
+  </section>
+</Base>

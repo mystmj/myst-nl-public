@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Label from "../../components/Label.astro";
+import { SITE_URL } from "../../lib/site.mjs";
+import { datumNl, leestijd } from "../../lib/artikel";
+
+export async function getStaticPaths() {
+  const artikelen = await getCollection("artikelen", (a) => !a.data.concept);
+  return artikelen.map((a) => ({ params: { slug: a.id }, props: { artikel: a } }));
+}
+
+const { artikel } = Astro.props;
+const { Content } = await render(artikel);
+const { titel, samenvatting, categorie, auteur, datum, afbeelding } = artikel.data;
+const url = new URL(Astro.url.pathname, SITE_URL).href;
+const delen = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+---
+<Base title={`${titel} · Myst`} description={samenvatting} ogType="article" ogImage={afbeelding ?? "/og/default.png"} publishedTime={datum} author={auteur}>
+  <article class="wrap pagina-kop artikel eind">
+    <Label>blog · {categorie}</Label>
+    <h1>{titel}</h1>
+    <p class="mono artikel__meta">{datumNl(datum)} · {auteur} · {leestijd(artikel.body)} minuten lezen</p>
+    <div class="artikel__tekst"><Content /></div>
+    <p class="artikel__voet">
+      <a href="/blog">← Alle blogs</a>
+      <a href={delen} target="_blank" rel="noopener">Deel op LinkedIn</a>
+    </p>
+  </article>
+</Base>

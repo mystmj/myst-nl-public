@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import Label from "../components/Label.astro";
+
+const blokken = [
+  ["Statisch.", "De pagina's worden bij elke wijziging vooraf gebouwd met Astro tot gewone HTML. Er draait geen server die per bezoek iets berekent; er is niets om te patchen en niets om in te breken."],
+  ["Deploy bij elke push.", "De broncode staat in Git. Elke push naar de hoofdtak bouwt de site opnieuw en zet hem live op Cloudflare Workers, wereldwijd op het netwerk van Cloudflare. De commit waar je nu naar kijkt staat onderaan elke pagina."],
+  ["We volgen je niet.", "Geen cookies, geen trackers, geen analytics, geen externe scripts of lettertypen van derden. Alles wat de pagina laadt komt van myst.nl zelf. Daarom is er ook geen cookiebanner: er valt niets te accepteren."],
+  ["Headers op orde.", "Content Security Policy, HSTS, geen framing, geen MIME sniffing. Te controleren met elke headerscanner."],
+  ["Alles in Git.", "De broncode, de teksten en de configuratie van de site staan in één repository. Een wijziging aan een tekst of aan de headers is een commit, en elke commit is terug te draaien."],
+  ["De terminal is echt.", "Wat je op de homepage ziet is een trailer; de shell zelf draait op shell.myst.nl en is een omgeving die je mag verkennen."],
+];
+---
+<Base title="Hoe deze site is gebouwd · Myst" description="Statisch gebouwd met Astro op Cloudflare Workers, zonder cookies, met alles in Git.">
+  <div class="wrap pagina-kop">
+    <Label>onder de motorkap</Label>
+    <h1>Hoe deze site is gebouwd</h1>
+    <p>Een site die Terraform, pipelines en infrastructuur als code verkoopt, hoort zelf ook zo gebouwd te zijn. Dus geen WordPress, geen plugins, geen database.</p>
+  </div>
+  <section class="wrap sectie fade eind">
+    <div class="gedempt tekstblok">
+      {blokken.map(([kop, tekst]) => <p><strong class="sterk">{kop}</strong> {tekst}</p>)}
+      <p class="mono t13">Broncode: <a href="https://github.com/mystmj/myst-nl-public" target="_blank" rel="noopener">github.com/mystmj/myst-nl-public</a></p>
+    </div>
+  </section>
+</Base>

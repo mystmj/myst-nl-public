@@ -1,0 +1,4 @@
+---
+const { as: Tag = "article", chamfer = false, compact = false, class: klas, ...rest } = Astro.props;
+---
+<Tag class:list={["kaart", { "kaart--chamfer": chamfer, "kaart--compact": compact }, klas]} {...rest}><slot /></Tag>

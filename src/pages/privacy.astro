@@ -1,0 +1,33 @@
+---
+import Base from "../layouts/Base.astro";
+import Label from "../components/Label.astro";
+
+const blokken = [
+  ["Verwerkingsverantwoordelijke.", "Myst B.V., Symfonielaan 26, 3438 EV Nieuwegein, KvK 91802938. Vragen over privacy kun je mailen naar info@myst.nl."],
+  ["Geen cookies, geen analytics, geen formulieren.", "Deze website plaatst geen cookies, meet geen bezoekersgedrag en heeft geen formulieren. De site draait op het netwerk van Cloudflare. Cloudflare verwerkt bij elk bezoek technisch noodzakelijke gegevens zoals het IP adres, om de site te leveren en te beschermen tegen misbruik. Myst leest die gegevens niet uit en koppelt ze niet aan personen."],
+  ["Welke gegevens we verwerken.", "De enige persoonsgegevens die we verwerken zijn de gegevens die je zelf mailt naar info@myst.nl, zoals je naam, contactgegevens en CV, en wat shell.myst.nl verstuurt bij een sollicitatie. Wie via shell.myst.nl solliciteert, vult naam, e-mailadres, de gekozen rol en een motivatie in. Die gegevens worden per e-mail aan Myst gestuurd en nergens anders opgeslagen."],
+  ["Waarvoor we ze gebruiken.", "Om een opdracht te vinden die bij je past."],
+  ["Met wie we ze delen.", "We delen je gegevens binnen Myst als dat nodig is om de juiste opdracht voor je te vinden. Je CV en de bijbehorende gegevens kunnen we doorsturen naar opdrachtgevers. De opdrachtgevers van Myst zitten in Nederland. Je gegevens worden niet buiten de EU gedeeld. Als we daartoe wettelijk verplicht zijn, geven we je gegevens aan toezichthouders of opsporingsinstanties. Krijgt Myst een andere eigenaar, dan kunnen we je gegevens delen met de nieuwe eigenaar en diens adviseurs. Daar brengen we je dan van op de hoogte."],
+  ["Hoe lang we ze bewaren.", "Sollicitatiegegevens bewaren we tot uiterlijk vier weken na afloop van de procedure. Met jouw toestemming bewaren we ze maximaal een jaar, zodat we je kunnen benaderen als er later een passende rol is."],
+  ["Je rechten.", "Je hebt het recht op inzage, correctie en verwijdering van je gegevens, het recht om bezwaar te maken tegen de verwerking en het recht om je gegevens mee te nemen. Mail daarvoor naar info@myst.nl. Je kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens."],
+  ["Andere websites.", "Deze website verwijst naar andere websites, zoals die van de groep waar Myst deel van uitmaakt en shell.myst.nl. Daar kunnen andere regels gelden. Lees het privacybeleid van die sites; wij zijn niet verantwoordelijk voor wat daar met je gegevens gebeurt."],
+  ["Wijzigingen.", "Dit privacybeleid kan door Myst worden gewijzigd. Wijzigingen vermelden we hier. Heb je vragen of opmerkingen, mail ons dan op info@myst.nl."],
+  ["Laatst gewijzigd.", "5 november 2026"],
+];
+
+// tekst tussen vierkante haken wordt amber
+const delen = (t: string) => t.split(/(\[[^\]]*\])/).filter(Boolean).map((d) => ({ d, haak: d.startsWith("[") }));
+---
+<Base title="Privacy · Myst" description="Deze website gebruikt geen cookies, geen analytics en geen formulieren.">
+  <div class="wrap pagina-kop">
+    <Label>privacy</Label>
+    <h1>Privacy</h1>
+  </div>
+  <section class="wrap sectie fade eind">
+    <div class="gedempt tekstblok">
+      {blokken.map(([kop, tekst]) => (
+        <p><strong class="sterk">{kop}</strong> {delen(tekst).map(({ d, haak }) => haak ? <span class="amber">{d}</span> : d)}</p>
+      ))}
+    </div>
+  </section>
+</Base>

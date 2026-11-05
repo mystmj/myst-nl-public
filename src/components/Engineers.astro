@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import Kaart from "./Kaart.astro";
+import Chip from "./Chip.astro";
+
+const engineers = (await getCollection("engineers", (e) => !e.data.concept)).sort((a, b) => a.data.volgorde - b.data.volgorde);
+---
+<div class="raster raster--breed">
+  {engineers.map(({ data: e }) => (
+    <Kaart chamfer class="engineer">
+      <div>
+        <h3>{e.voornaam}</h3>
+        <span class="engineer__titel">{e.titel}</span>
+      </div>
+      <p>{e.tekst}</p>
+      <p><b class="sterk">Bouwt het liefst aan:</b> {e.bouwtHetLiefstAan}</p>
+      <div class="chips">{e.chips.map((c) => <Chip>{c}</Chip>)}</div>
+      <div class="rij"><span class="rij__naam">CERTS</span><span class="rij__waarde">{e.certs.join(" · ")}</span></div>
+      {e.buitenHetWerk && <p><b class="sterk">Buiten het werk:</b> {e.buitenHetWerk}</p>}
+    </Kaart>
+  ))}
+</div>
