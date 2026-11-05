@@ -35,6 +35,7 @@ Elke push naar `main` start een build via Cloudflare Workers Builds. Die draait 
 
 ## Licentie
 
-De code valt onder de MIT licentie, zie [LICENSE](LICENSE).
-
-Content © Myst B.V., alle rechten voorbehouden: teksten, het Myst logo, de OG afbeeldingen en de bio's van de engineers vallen niet onder de MIT licentie. De logo's van Microsoft Azure, Amazon Web Services en Google Cloud zijn merken van die partijen. Manrope en JetBrains Mono vallen onder de SIL Open Font License, zie `public/fonts`.
+- **Code** (`src/` behalve de inhoud hieronder, `scripts/` en de configuratie): MIT, zie [LICENSE](LICENSE).
+- **Inhoud** (alle teksten in `src/content/` en in de pagina's, de artikelen en de bio's van de engineers): © Myst B.V., alle rechten voorbehouden. Citeren met bronvermelding mag.
+- **Merk** (naam, logo, huisstijl, ASCII logo en `public/og/`): © Myst B.V., niet vrij te gebruiken. De logo's van Microsoft Azure, Amazon Web Services en Google Cloud zijn merken van die partijen.
+- **Fonts** (Manrope en JetBrains Mono): SIL Open Font License 1.1, zie [OFL-Manrope.txt](public/fonts/OFL-Manrope.txt) en [OFL-JetBrainsMono.txt](public/fonts/OFL-JetBrainsMono.txt) in `public/fonts`.
