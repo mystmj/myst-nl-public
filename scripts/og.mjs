@@ -15,6 +15,7 @@ const font = (pkg, bestand) => readFileSync(join(root, "node_modules/@fontsource
 
 const fonts = [
   { name: "Manrope", data: font("manrope", "manrope-latin-800-normal.woff"), weight: 800, style: "normal" },
+  { name: "Manrope", data: font("manrope", "manrope-latin-500-normal.woff"), weight: 500, style: "normal" },
   { name: "JetBrains Mono", data: font("jetbrains-mono", "jetbrains-mono-latin-500-normal.woff"), weight: 500, style: "normal" },
 ];
 
@@ -25,13 +26,14 @@ const logo = "data:image/svg+xml;base64," + Buffer.from(logoSvg).toString("base6
 
 const h = (type, style, children) => ({ type, props: { style, children } });
 
-function kaart(label, titel) {
+function kaart(label, titel, intro) {
   const grootte = titel.length > 70 ? 56 : titel.length > 45 ? 66 : 76;
   return h("div", { display: "flex", flexDirection: "column", justifyContent: "space-between", width: 1200, height: 630, background: "#0B1026" }, [
     h("div", { display: "flex", flexDirection: "column", padding: "64px 72px 0" }, [
       { type: "img", props: { src: logo, width: 202, height: 56, style: { width: 202, height: 56 } } },
       h("div", { display: "flex", fontFamily: "JetBrains Mono", fontWeight: 500, fontSize: label.length > 40 ? 20 : 28, letterSpacing: label.length > 40 ? 1 : 3, color: "#FF4DB0", marginTop: 56, maxWidth: 1056 }, "// " + label),
       h("div", { display: "flex", fontFamily: "Manrope", fontWeight: 800, fontSize: grootte, lineHeight: 1.12, color: "#FFFFFF", marginTop: 24, lineClamp: 3, maxWidth: 1000 }, titel),
+      ...(intro ? [h("div", { display: "flex", fontFamily: "Manrope", fontWeight: 500, fontSize: 34, lineHeight: 1.35, color: "#A3ACC7", marginTop: 28, maxWidth: 1000 }, intro)] : []),
     ]),
     h("div", { display: "flex", flexDirection: "column" }, [
       h("div", { display: "flex", justifyContent: "flex-end", padding: "0 72px 28px", fontFamily: "JetBrains Mono", fontWeight: 500, fontSize: 24, color: "#A3ACC7" }, new URL(SITE_URL).host),
@@ -40,8 +42,8 @@ function kaart(label, titel) {
   ]);
 }
 
-async function maak(bestand, label, titel) {
-  const svg = await satori(kaart(label, titel), { width: 1200, height: 630, fonts });
+async function maak(bestand, label, titel, intro) {
+  const svg = await satori(kaart(label, titel, intro), { width: 1200, height: 630, fonts });
   writeFileSync(join(root, "public/og", bestand), new Resvg(svg, { fitTo: { mode: "width", value: 1200 } }).render().asPng());
   console.log("public/og/" + bestand);
 }
@@ -51,12 +53,12 @@ const PAGINAS = [
   ["werkwijze.png", "src/pages/werkwijze.astro"],
   ["werken-bij.png", "src/pages/werken-bij.astro"],
   ["workshops.png", "src/pages/workshops/index.astro"],
-  ["blog.png", "src/pages/blog/index.astro"],
+  ["blog.png", "src/pages/blog/index.astro", true], // met de intro (<p> direct na de <h1>) onder de kop
 ];
 const tekst = (m) => m[1].trim().replace(/&amp;/g, "&");
-for (const [bestand, bron] of PAGINAS) {
+for (const [bestand, bron, metIntro] of PAGINAS) {
   const src = readFileSync(join(root, bron), "utf8");
-  await maak(bestand, tekst(src.match(/<Label>([^<]+)<\/Label>/)), tekst(src.match(/<h1>([^<]+)<\/h1>/)));
+  await maak(bestand, tekst(src.match(/<Label>([^<]+)<\/Label>/)), tekst(src.match(/<h1>([^<]+)<\/h1>/)), metIntro ? tekst(src.match(/<\/h1>\s*<p>([^<]+)<\/p>/)) : undefined);
 }
 
 const map = join(root, "src/content/artikelen");
