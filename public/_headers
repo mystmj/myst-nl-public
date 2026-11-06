@@ -6,3 +6,13 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+
+# Het oude logo en de OG afbeeldingen moeten ook buiten myst.nl laden (e-mailhandtekeningen, webmail, sociale netwerken).
+# Cloudflare voegt headers van meerdere blokken samen, dus de waarde van /* wordt eerst losgelaten.
+/wp-content/*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/og/*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
