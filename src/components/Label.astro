@@ -1,4 +1,5 @@
 ---
+import { bergtopSvg } from "../lib/bergtop.mjs";
 const { stil = false } = Astro.props;
 ---
-<p class:list={["label", { "label--stil": stil }]}>// <slot /></p>
+<p class:list={["label", { "label--stil": stil }]}><Fragment set:html={bergtopSvg} /><slot /></p>

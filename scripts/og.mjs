@@ -9,6 +9,7 @@ import { dirname, join } from "node:path";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import { SITE_URL } from "../src/lib/site.mjs";
+import { bergtopPad } from "../src/lib/bergtop.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const font = (pkg, bestand) => readFileSync(join(root, "node_modules/@fontsource", pkg, "files", bestand));
@@ -24,14 +25,21 @@ const logoBron = readFileSync(join(root, "src/components/Logo.astro"), "utf8");
 const logoSvg = logoBron.slice(logoBron.indexOf("<svg")).replace(/ role="img" aria-label="Myst"/, ' xmlns="http://www.w3.org/2000/svg"').replace(' class="logo"', "");
 const logo = "data:image/svg+xml;base64," + Buffer.from(logoSvg).toString("base64");
 
+// bergtop-teken voor het label (zelfde vorm als op de site)
+const bergtop = "data:image/svg+xml;base64," + Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="15.2 28.5 85.3 43"><defs><linearGradient id="v" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8008A"/><stop offset="1" stop-color="#5CA0FF"/></linearGradient></defs><path d="${bergtopPad}" fill="url(#v)"/></svg>`).toString("base64");
+
 const h = (type, style, children) => ({ type, props: { style, children } });
 
 function kaart(label, titel, intro) {
+  const lh = label.length > 40 ? 20 : 28; // lettergrootte van het label
   const grootte = titel.length > 70 ? 56 : titel.length > 45 ? 66 : 76;
   return h("div", { display: "flex", flexDirection: "column", justifyContent: "space-between", width: 1200, height: 630, background: "#0B1026" }, [
     h("div", { display: "flex", flexDirection: "column", padding: "64px 72px 0" }, [
       { type: "img", props: { src: logo, width: 202, height: 56, style: { width: 202, height: 56 } } },
-      h("div", { display: "flex", fontFamily: "JetBrains Mono", fontWeight: 500, fontSize: label.length > 40 ? 20 : 28, letterSpacing: label.length > 40 ? 1 : 3, color: "#FF4DB0", marginTop: 56, maxWidth: 1056 }, "// " + label),
+      h("div", { display: "flex", alignItems: "center", marginTop: 56, maxWidth: 1056 }, [
+        { type: "img", props: { src: bergtop, width: Math.round(lh * 0.9 * 85.3 / 43), height: Math.round(lh * 0.9), style: { width: Math.round(lh * 0.9 * 85.3 / 43), height: Math.round(lh * 0.9), marginRight: Math.round(lh * 0.7) } } },
+        h("div", { display: "flex", fontFamily: "JetBrains Mono", fontWeight: 500, fontSize: lh, letterSpacing: label.length > 40 ? 1 : 3, lineHeight: 1.4, color: "#FF4DB0" }, label),
+      ]),
       h("div", { display: "flex", fontFamily: "Manrope", fontWeight: 800, fontSize: grootte, lineHeight: 1.12, color: "#FFFFFF", marginTop: 24, lineClamp: 3, maxWidth: 1000 }, titel),
       ...(intro ? [h("div", { display: "flex", fontFamily: "Manrope", fontWeight: 500, fontSize: 34, lineHeight: 1.35, color: "#A3ACC7", marginTop: 28, maxWidth: 1000 }, intro)] : []),
     ]),

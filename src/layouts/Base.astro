@@ -3,6 +3,8 @@ import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import Logo from "../components/Logo.astro";
 import Toast from "../components/Toast.astro";
+import BergtopDefs from "../components/BergtopDefs.astro";
+import Label from "../components/Label.astro";
 import { buildHash, buildDatum } from "../lib/build";
 import { SITE_URL } from "../lib/site.mjs";
 import logo from "../ascii-logo.txt?raw";
@@ -55,6 +57,7 @@ Gebouwd met Astro, zonder cookies: https://myst.nl/gebouwd
   </head>
   <body>
     <Fragment set:html={commentaar} />
+    <BergtopDefs />
     <a href="#inhoud" class="sr-only">Naar de inhoud</a>
     <header class="wrap nav">
       <a href="/" aria-label="Myst home"><Logo /></a>
@@ -71,29 +74,29 @@ Gebouwd met Astro, zonder cookies: https://myst.nl/gebouwd
           <p>Symfonielaan 26<br />3438 EV Nieuwegein<br />030 227 1973<br /><a href="mailto:info@myst.nl" class="inregel">info@myst.nl</a><br />KvK 91802938<br /><a class="inregel" href="https://www.normeringarbeid.nl/snakeurmerk/gecertificeerde-ondernemingen/53031c51-af37-418c-50aa-89f12b03879f/verklaring/nl" target="_blank" rel="noopener" title="Verklaring Stichting Normering Arbeid">SNA gecertificeerd (NEN 4400-1)</a></p>
         </div>
         <div class="voet__kolom voet__kolom--smal">
-          <p class="label label--stil">Site</p>
+          <Label stil>Site</Label>
           {nav.map(([href, naam]) => <a href={href}>{naam}</a>)}
           <a href="/privacy">Privacy</a>
         </div>
         <div class="voet__kolom voet__kolom--smal">
-          <p class="label label--stil">Groep</p>
+          <Label stil>Groep</Label>
           <a href="https://itbrouwerij.nl" target="_blank" rel="noopener">IT Brouwerij</a>
           <a href="https://techforce1.nl" target="_blank" rel="noopener">Techforce1</a>
           <a href="https://craftsmen.nl" target="_blank" rel="noopener">Craftsmen</a>
           <a href="https://codefoundry.nl" target="_blank" rel="noopener">Code Foundry</a>
         </div>
         <div class="voet__kolom voet__kolom--smal">
-          <p class="label label--stil">Clouds</p>
+          <Label stil>Clouds</Label>
           <a href="/#clouds">Azure</a>
           <a href="/#clouds">AWS</a>
           <a href="/#clouds">Google Cloud</a>
         </div>
         <div class="voet__kolom voet__kolom--smal">
-          <p class="label label--stil">Volg ons</p>
+          <Label stil>Volg ons</Label>
           <a href="https://www.linkedin.com/company/myst" target="_blank" rel="noopener">LinkedIn</a>
         </div>
         <div class="voet__kolom">
-          <p class="label label--stil">Hoe deze site is gebouwd</p>
+          <Label stil>Hoe deze site is gebouwd</Label>
           <a href="/gebouwd">Lees hoe →</a>
         </div>
       </div>

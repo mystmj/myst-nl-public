@@ -1,3 +1,5 @@
+import { bergtopSvg } from "../lib/bergtop.mjs";
+
 const CODES = ["1C", "BD", "55", "E9", "7A", "FF"];
 const N = 5;
 const BUFFER = 6;
@@ -43,7 +45,8 @@ function bouw(sectie: HTMLElement) {
   const buffer: string[] = [];
   let klaar = false;
 
-  const label = el("p", "label", "// breach protocol");
+  const label = el("p", "label", "breach protocol");
+  label.insertAdjacentHTML("afterbegin", bergtopSvg);
   const kop = el("h2", undefined, "Of breek in.");
   const spel = el("div", "breach");
 

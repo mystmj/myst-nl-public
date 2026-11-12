@@ -26,6 +26,7 @@ a:hover { color: var(--magenta-tekst); }
 .mono { font-family: var(--mono); }
 .gedempt { color: var(--tekst-gedempt); }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; width: 100%; }
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* header */
@@ -54,6 +55,7 @@ a:hover { color: var(--magenta-tekst); }
 
 /* label, chip, knop, kaart */
 .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--magenta-tekst); }
+.label__teken { display: inline-block; height: 0.9em; width: auto; margin-right: 0.7em; vertical-align: -0.12em; }
 .label--stil { color: var(--tekst-gedempt); }
 .chip { display: inline-block; font-family: var(--mono); font-size: 12px; padding: 6px 10px; border: 1px solid rgba(255, 255, 255, 0.14); color: var(--tekst-zacht); border-radius: 3px; white-space: nowrap; }
 .cloudlogo { align-self: flex-start; display: inline-flex; align-items: center; }
@@ -217,7 +219,7 @@ html.fosfor .gloedlijn { background: linear-gradient(90deg, #5BF870, transparent
 html.fosfor .knop--primair { color: #06110C; text-shadow: none; box-shadow: 0 0 24px rgba(91, 248, 112, 0.35); }
 html.fosfor .knop--primair:hover, html.fosfor .terminal:hover .knop--primair, html.fosfor .terminal:focus-visible .knop--primair { background: #8CFF9B; color: #06110C; }
 html.fosfor .knop--secundair, html.fosfor .nav nav a.console, html.fosfor .chip { border-color: rgba(91, 248, 112, 0.4); }
-html.fosfor .logo stop { stop-color: #5BF870; }
+html.fosfor .logo stop, html.fosfor .svg-defs stop { stop-color: #5BF870; }
 html.fosfor .logo g { fill: #5BF870; }
 
 /* breach protocol (404) */
