@@ -181,7 +181,7 @@ a:hover { color: var(--magenta-tekst); }
 .voet__kolom p + p { margin-top: 4px; }
 .voet__kolom--smal { flex-basis: 200px; }
 .voet__kolom a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-size: 15px; }
-.voet__kolom a.mail { display: inline; min-height: 0; font-size: inherit; }
+.voet__kolom a.inregel { display: inline; min-height: 0; font-size: inherit; }
 .voet__kolom .label { margin-bottom: 6px; }
 .voet__kolom p { font-size: 14px; line-height: 1.7; color: var(--tekst-gedempt); }
 .voet__build { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-bottom: 24px; font-family: var(--mono); font-size: 11px; color: #6F7A9C; }
