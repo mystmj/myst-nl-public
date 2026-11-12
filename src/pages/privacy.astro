@@ -15,8 +15,8 @@ const blokken = [
   ["Laatst gewijzigd.", "5 november 2026"],
 ];
 
-// tekst tussen vierkante haken wordt amber
-const delen = (t: string) => t.split(/(\[[^\]]*\])/).filter(Boolean).map((d) => ({ d, haak: d.startsWith("[") }));
+// tekst tussen vierkante haken wordt amber; het mailadres wordt een link
+const delen = (t: string) => t.split(/(\[[^\]]*\]|info@myst\.nl)/).filter(Boolean).map((d) => ({ d, haak: d.startsWith("["), mail: d === "info@myst.nl" }));
 ---
 <Base title="Privacy · Myst" description="Deze website gebruikt geen cookies, geen analytics en geen formulieren.">
   <div class="wrap pagina-kop">
@@ -26,7 +26,7 @@ const delen = (t: string) => t.split(/(\[[^\]]*\])/).filter(Boolean).map((d) => 
   <section class="wrap sectie fade eind">
     <div class="gedempt tekstblok">
       {blokken.map(([kop, tekst]) => (
-        <p><strong class="sterk">{kop}</strong> {delen(tekst).map(({ d, haak }) => haak ? <span class="amber">{d}</span> : d)}</p>
+        <p><strong class="sterk">{kop}</strong> {delen(tekst).map(({ d, haak, mail }) => haak ? <span class="amber">{d}</span> : mail ? <a href="mailto:info@myst.nl">{d}</a> : d)}</p>
       ))}
     </div>
   </section>

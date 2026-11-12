@@ -51,6 +51,6 @@ In de workshop krijgt elke deelnemer een eigen werkplek met Claude Code en toega
 
 ## Tot slot
 
-**Wil je dit met je team ervaren?** Dan organiseren wij de workshop bij jou op kantoor. Dat kost niets. Jij regelt de ruimte en de catering, en we vragen één ding: iedereen heeft een eigen Claude abonnement (minimaal Pro). Het cluster waarop gewerkt wordt regelen wij. De workshop duurt ongeveer vier uur en is voor maximaal 12 deelnemers. Mail naar [info@myst.nl](mailto:info@myst.nl) en we plannen het samen.
+**Wil je dit met je team ervaren?** Dan organiseren wij de workshop bij jou op kantoor. Dat kost niets. Jij regelt de ruimte en de catering, en we vragen één ding: iedereen heeft een eigen Claude abonnement (minimaal Pro). Het cluster waarop gewerkt wordt regelen wij. De workshop duurt ongeveer vier uur en is voor maximaal 12 deelnemers. Mail naar [info@myst.nl](mailto:info@myst.nl?subject=Workshop) en we plannen het samen.
 
-**Ben je zelf engineer en denk je "hier wil ik wel werken"?** Wij zijn een kleine club senior cloud engineers waar je zelf kiest aan welke opdrachten je werkt. Solliciteren kan via de terminal op [shell.myst.nl](https://shell.myst.nl), of mail je cv en een korte motivatie naar [info@myst.nl](mailto:info@myst.nl).
+**Ben je zelf engineer en denk je "hier wil ik wel werken"?** Wij zijn een kleine club senior cloud engineers waar je zelf kiest aan welke opdrachten je werkt. Solliciteren kan via de terminal op [shell.myst.nl](https://shell.myst.nl), of mail je cv en een korte motivatie naar [info@myst.nl](mailto:info@myst.nl?subject=Sollicitatie).
