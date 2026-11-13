@@ -103,9 +103,10 @@ a:hover { color: var(--magenta-tekst); }
 .status { font-family: var(--mono); font-size: 12px; color: var(--amber); border: 1px solid rgba(255, 180, 84, 0.4); padding: 4px 8px; border-radius: 3px; }
 .certs { display: flex; flex-direction: column; gap: 6px; }
 .certs__label { font-family: var(--mono); font-size: 11px; color: var(--tekst-gedempt); }
-.certs__lijst { display: flex; flex-wrap: wrap; gap: 4px 8px; margin: 0; padding: 0; list-style: none; font-family: var(--mono); font-size: 12px; color: var(--tekst-zacht); }
-.certs__lijst li { white-space: nowrap; max-width: 100%; }
-.certs__lijst li:not(:last-child)::after { content: "·"; content: "·" / ""; margin-left: 8px; }
+.certs__lijst { --cert-gap: 20px; display: flex; flex-wrap: wrap; gap: 4px var(--cert-gap); margin: 0; padding: 0; list-style: none; overflow: hidden; font-family: var(--mono); font-size: 12px; color: var(--tekst-zacht); }
+.certs__lijst li { position: relative; white-space: nowrap; max-width: 100%; }
+/* Het teken staat in de ruimte links van elk item; het eerste item op een regel zit tegen de rand van de lijst, daar knipt overflow het weg */
+.certs__lijst li:not(:first-child)::before { content: "·"; content: "·" / ""; position: absolute; left: calc((var(--cert-gap) + 1ch) / -2); }
 .balk { display: flex; gap: 3px; }
 .balk i { display: block; width: 14px; height: 10px; background: #1F2A52; }
 .balk i.aan { background: var(--blauw-tekst); }
