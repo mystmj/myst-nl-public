@@ -101,14 +101,15 @@ a:hover { color: var(--magenta-tekst); }
 /* engineers */
 .engineer__kop { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .status { font-family: var(--mono); font-size: 12px; color: var(--amber); border: 1px solid rgba(255, 180, 84, 0.4); padding: 4px 8px; border-radius: 3px; }
-.rij { display: flex; align-items: center; gap: 12px; }
-.rij__naam { font-family: var(--mono); font-size: 11px; color: var(--tekst-gedempt); width: 90px; flex: none; }
-.rij__waarde { font-family: var(--mono); font-size: 12px; color: var(--tekst-zacht); }
+.certs { display: flex; flex-direction: column; gap: 6px; }
+.certs__label { font-family: var(--mono); font-size: 11px; color: var(--tekst-gedempt); }
+.certs__lijst { display: flex; flex-wrap: wrap; gap: 4px 8px; margin: 0; padding: 0; list-style: none; font-family: var(--mono); font-size: 12px; color: var(--tekst-zacht); }
+.certs__lijst li { white-space: nowrap; max-width: 100%; }
+.certs__lijst li:not(:last-child)::after { content: "·"; content: "·" / ""; margin-left: 8px; }
 .balk { display: flex; gap: 3px; }
 .balk i { display: block; width: 14px; height: 10px; background: #1F2A52; }
 .balk i.aan { background: var(--blauw-tekst); }
 .engineer__titel { font-family: var(--mono); font-size: 12px; color: var(--blauw-tekst); }
-.engineer .rij { align-items: flex-start; }
 
 /* werkwijze */
 .stappen { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
@@ -119,7 +120,7 @@ a:hover { color: var(--magenta-tekst); }
 
 /* werken bij */
 .citaat blockquote { font-size: 16px; line-height: 1.65; color: var(--tekst); }
-.citaat figcaption { display: flex; align-items: center; gap: 12px; }
+.citaat figcaption { display: flex; align-items: center; gap: 12px; margin-top: auto; }
 .citaat .avatar { width: 40px; height: 40px; border-radius: 4px; flex: none; }
 .citaat figcaption b { display: block; }
 .citaat figcaption .mono { font-size: 12px; color: var(--tekst-gedempt); }
@@ -292,3 +293,5 @@ html.fosfor .logo g { fill: #5BF870; }
 /* lopende tekst in blokken */
 .alinea { display: flex; flex-direction: column; gap: 16px; font-size: 16px; line-height: 1.7; color: var(--tekst-gedempt); }
 .alinea strong { color: var(--tekst); }
+/* Op zeer smalle schermen mag een lange certificering zelf afbreken, andere blijven heel */
+@media (max-width: 330px) { .certs__lijst li { white-space: normal; } }

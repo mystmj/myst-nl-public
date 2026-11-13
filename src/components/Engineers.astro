@@ -15,7 +15,10 @@ const engineers = (await getCollection("engineers", (e) => !e.data.concept)).sor
       <p>{e.tekst}</p>
       <p><b class="sterk">Bouwt het liefst aan:</b> {e.bouwtHetLiefstAan}</p>
       <div class="chips">{e.chips.map((c) => <Chip>{c}</Chip>)}</div>
-      <div class="rij"><span class="rij__naam">CERTS</span><span class="rij__waarde">{e.certs.join(" · ")}</span></div>
+      <div class="certs">
+        <span class="certs__label">CERTS</span>
+        <ul class="certs__lijst">{e.certs.map((c) => <li>{c}</li>)}</ul>
+      </div>
       {e.buitenHetWerk && <p><b class="sterk">Buiten het werk:</b> {e.buitenHetWerk}</p>}
     </Kaart>
   ))}
